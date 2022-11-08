@@ -1,12 +1,18 @@
 import { React } from 'react';
 import './App.scss';
-import SimpleButton from './components/simpleButton';
+import Cart from './components/Cart';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import ProductList from './components/ProductList';
 
-const App = ({ state: { count, refreshID }}) =>
+const App = (context) =>
 	<div className="App" role="application">
-		<div>Count: { count }</div>
-		<div>{ SimpleButton() }</div>
-		<div>Refresh ID: { refreshID }</div>
+		<Header/>
+		<div className="main-content">
+			<ProductList { ...context }/>
+			<Cart/>
+		</div>
+		<Footer/>
 	</div>;
 
 export default App;

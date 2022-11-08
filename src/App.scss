@@ -5,3 +5,63 @@
 		font-weight: bold;
 	}
 }
+
+//Header
+
+header {
+	min-height: 120px;
+	background-color: cadetblue;
+}
+
+
+//Footer
+
+footer {
+	min-height: 90px;
+	background-color: cadetblue;
+}
+
+// Main CContent
+
+.main-content {
+	height: auto;
+	min-height: 750px;
+	display: flex;
+	flex-direction: row;
+
+}
+
+// Product List
+
+.product-list {
+	width: 75%;
+	background-color: beige;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.productTile {
+	width: 300px;
+	height: auto;
+}
+
+.product {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+img {
+	width: 260px;
+	height: auto;
+}
+
+
+// Cart
+
+.cart {
+	width: 25%;
+	background-color: bisque;
+}
