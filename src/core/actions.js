@@ -1,20 +1,42 @@
+
 const increaseCount = ({ state, data }) => ({
 	count: state.count + data,
 });
 
 const addProductToCart = (context) => {
-	const { state: { cartItems }, data: { id }} = context;
+	const {
+		state: { cartItems },
+		data: { id },
+		config: { cartAction: { addProduct }},
+	} = context;
 
 	const productExistInCart = cartItems.filter((item) =>
 		item.id === id).length;
-
-	const cartItemList = (!productExistInCart
+	const purchaseItemAction = { actionOnCart: addProduct };
+	const cartItemsWithQtyAndPrice = (!productExistInCart
 		&& addNewProduct(context))
-		|| updateProductQuantity(context);
+		|| updateProductQuantity({ ...{ ...context, purchaseItemAction }});
 
 	return {
-		cartItems: cartItemList,
-		totalPrice: calculateTotalPrice(cartItemList),
+		cartItems: cartItemsWithQtyAndPrice,
+		totalPrice: calculateTotalPrice(cartItemsWithQtyAndPrice),
+	};
+};
+
+const removeProductFromCart = (context) => {
+	const { config: { cartAction: { removeProduct }}} = context;
+	const purchaseItemAction = { actionOnCart: removeProduct };
+
+	const cartItemsWithQtyAndPrice
+		= updateProductQuantity({ ...{ ...context, purchaseItemAction }});
+
+	const updatedCartItemList
+	= cartItemsWithQtyAndPrice.filter((purchaseItem) =>
+		purchaseItem.quantity >= 1);
+
+	return {
+		cartItems: updatedCartItemList,
+		totalPrice: calculateTotalPrice(updatedCartItemList),
 	};
 };
 
@@ -35,12 +57,20 @@ const updateProductQuantity = (context) => {
 	const { state: { cartItems }, data: { id }} = context;
 
 	return cartItems.map((purchaseItem) =>
-		(purchaseItem.id === id && updatePurchasedItem(purchaseItem))
+		(purchaseItem.id === id
+			&& updatePurchasedItem({ ...{ ...context, purchaseItem }}))
 		|| purchaseItem);
 };
 
-const updatePurchasedItem = (purchaseItem) => {
-	purchaseItem.quantity += 1;
+const updatePurchasedItem = (context) => {
+	const {
+		purchaseItemAction: { actionOnCart },
+		purchaseItem,
+		config: { cartAction: { addProduct }},
+	} = context;
+
+	(actionOnCart === addProduct && purchaseItem.quantity++)
+		|| purchaseItem.quantity--;
 	purchaseItem.price = purchaseItem.quantity * purchaseItem.unitPrice;
 	return purchaseItem;
 };
@@ -51,6 +81,7 @@ const calculateTotalPrice = (cartItems) =>
 const actions = {
 	increaseCount,
 	addProductToCart,
+	removeProductFromCart,
 };
 
 export default actions;

@@ -21,10 +21,13 @@ const CartList = (context) => {
 };
 
 const PurchaseQuantityControl = (context) => {
-	const { actions: { addProductToCart }, purchaseItem } = context;
+	const { actions: { addProductToCart, removeProductFromCart },
+		purchaseItem } = context;
 
 	return <div>
-		<button> - </button>
+		<button
+			onClick={ () => removeProductFromCart(purchaseItem) }
+		> - </button>
 		&nbsp;{purchaseItem.quantity}&nbsp;
 		<button
 			onClick={ () => addProductToCart(purchaseItem) }

@@ -1,6 +1,11 @@
 const config = {
 	countStart: 0,
 	increment: 1,
+	decrement: 1,
+	cartAction: {
+		addProduct: 'addProduct',
+		removeProduct: 'removeProduct',
+	},
 	initialProductInCart: [],
 	initialPurchasePrice: 0.00,
 	productList: [{
