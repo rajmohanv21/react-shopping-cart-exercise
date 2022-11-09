@@ -3,10 +3,10 @@ const increaseCount = ({ state, data }) => ({
 });
 
 const addProductToCart = (context) => {
-	const { state: { cartItems }, data: { product }} = context;
+	const { state: { cartItems }, data: { id }} = context;
 
 	const productExistInCart = cartItems.filter((item) =>
-		item.id === product.id).length;
+		item.id === id).length;
 
 	const cartItemList = (!productExistInCart
 		&& addNewProduct(context))
@@ -20,19 +20,19 @@ const addProductToCart = (context) => {
 
 const addNewProduct = (context) => {
 	const { state: { cartItems },
-		data: { product },
+		data,
 		config: { increment }} = context;
 
 	return [...cartItems,
 		{
-			...product,
+			...data,
 			quantity: increment,
-			price: increment * product.unitPrice,
+			price: increment * data.unitPrice,
 		}];
 };
 
 const updateProductQuantity = (context) => {
-	const { state: { cartItems }, data: { product: { id }}} = context;
+	const { state: { cartItems }, data: { id }} = context;
 
 	return cartItems.map((purchaseItem) =>
 		(purchaseItem.id === id && updatePurchasedItem(purchaseItem))

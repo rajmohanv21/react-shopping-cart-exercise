@@ -21,7 +21,7 @@ const Product = (context) => {
 			<ProductImage { ...product }/>
 			<div className="productInfo">
 				<ProductInfo { ...product }/>
-				<button onClick={ () => addProductToCart(context) }>
+				<button onClick={ () => addProductToCart(product) }>
 					Add To Cart
 				</button>
 			</div>
