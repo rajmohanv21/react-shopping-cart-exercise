@@ -6,30 +6,29 @@ const ProductImage = ({ image, name }) =>
 		<img src={ image } alt={ name }/>
 	</div>;
 
-const ProductInfo = ({ brand, name, price }) =>
+const ProductInfo = ({ brand, name, unitPrice }) =>
 	<div>
-		<p>{brand} </p>
-		<p>{name} </p>
-		<p><strong>Rs.{price} </strong></p>
+		<p>{ brand } </p>
+		<p>{ name } </p>
+		<p><strong>Rs.{ unitPrice } </strong></p>
 	</div>;
 
-const Product = ({ actions: { addProductToCart }, product }) =>
-// const { actions: { addProductToCart }, product } = context;
+const Product = (context) => {
+	const { actions: { addProductToCart }, product } = context;
 
-	<div className="productTile">
+	return <div className="productTile">
 		<div className="product">
 			<ProductImage { ...product }/>
 			<div className="productInfo">
 				<ProductInfo { ...product }/>
-				<button
-					onClick={ addProductToCart }
-				>
+				<button onClick={ () => addProductToCart(context) }>
 					Add To Cart
 				</button>
 			</div>
 		</div>
 	</div>
 	;
+};
 
 const ProductList = (context) => {
 	const { config: { productList }} = context;
