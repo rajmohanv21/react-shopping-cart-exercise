@@ -1,63 +1,7 @@
 import React from 'react';
 import '../App.scss';
-const CartList = (context) => {
-	const {
-		state: { cartItems },
-	} = context;
-
-	return <ul>
-		{cartItems.map((purchaseItem, index) =>
-			<li key={ index }>
-				<img src={ purchaseItem.image } alt={ purchaseItem.name }/>
-				<div className="cart-product-info">
-					<div> {purchaseItem.brand} </div>
-					<div> {purchaseItem.name} </div>
-					<PurchaseQuantityControl
-						{ ...{ ...context, purchaseItem } }
-					/>
-				</div>
-			</li>)}
-	</ul>;
-};
-
-const PurchaseQuantityControl = (context) => {
-	const { actions: {
-		addProductToCart,
-		removeProductFromCart,
-	},
-	purchaseItem } = context;
-
-	return <div>
-		<button
-			onClick={ () => removeProductFromCart(purchaseItem) }
-		> - </button>
-		&nbsp;{purchaseItem.quantity}&nbsp;
-		<button
-			onClick={ () => addProductToCart(purchaseItem) }
-			disabled={ !purchaseItem.isProductAvailable }
-		>
-			+ </button>
-	</div>;
-};
-
-const PurchasePrice = ({ state: { totalPrice }}) =>
-	<div className="purchase-price">
-		<div>Amount Payable</div>
-		<div>Rs.{totalPrice}</div>
-	</div>;
-
-const PurchaseDetails = (context) =>
-	<div className="cart-content">
-		<div className="cart">
-			<CartList { ...context }/>
-		</div>
-		<PurchasePrice { ...context }/>
-	</div>;
-
-const EmptyCart = () =>
-	<div className="empty-cart-message">
-		No products are available in cart
-	</div>;
+import PurchaseDetails from './PurchaseDetails';
+import EmptyCart from './EmptyCart';
 
 const Cart = (context) => {
 	const { state: { cartItems }} = context;
