@@ -21,8 +21,11 @@ const CartList = (context) => {
 };
 
 const PurchaseQuantityControl = (context) => {
-	const { actions: { addProductToCart, removeProductFromCart },
-		purchaseItem } = context;
+	const { actions: {
+		addProductToCart,
+		removeProductFromCart,
+	},
+	purchaseItem } = context;
 
 	return <div>
 		<button
@@ -31,6 +34,7 @@ const PurchaseQuantityControl = (context) => {
 		&nbsp;{purchaseItem.quantity}&nbsp;
 		<button
 			onClick={ () => addProductToCart(purchaseItem) }
+			disabled={ !purchaseItem.isProductAvailable }
 		>
 			+ </button>
 	</div>;
@@ -59,7 +63,7 @@ const Cart = (context) => {
 	const { state: { cartItems }} = context;
 
 	return <div className="cart-panel">
-		{(cartItems.length > 0
+		{(Boolean(cartItems.length)
 			&& <PurchaseDetails { ...context }/>)
 			|| <EmptyCart/>}
 

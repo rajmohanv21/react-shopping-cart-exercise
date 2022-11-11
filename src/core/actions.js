@@ -31,8 +31,8 @@ const removeProductFromCart = (context) => {
 		= updateProductQuantity({ ...{ ...context, purchaseItemAction }});
 
 	const updatedCartItemList
-	= cartItemsWithQtyAndPrice.filter((purchaseItem) =>
-		purchaseItem.quantity >= 1);
+		= cartItemsWithQtyAndPrice.filter((purchaseItem) =>
+			purchaseItem.quantity >= 1);
 
 	return {
 		cartItems: updatedCartItemList,
@@ -43,15 +43,22 @@ const removeProductFromCart = (context) => {
 const addNewProduct = (context) => {
 	const { state: { cartItems },
 		data,
-		config: { increment }} = context;
+		config: { increment, percentageValue }} = context;
 
 	return [...cartItems,
 		{
 			...data,
 			quantity: increment,
-			price: increment * data.unitPrice,
+			isProductAvailable: checkProductAvailability(data),
+			price: calculatePrice({ ...{ ...data, percentageValue }}),
 		}];
 };
+
+const calculatePrice = ({ quantity = 1,
+	unitPrice,
+	discount,
+	percentageValue }) =>
+	quantity * (unitPrice - (unitPrice * (discount * percentageValue)));
 
 const updateProductQuantity = (context) => {
 	const { state: { cartItems }, data: { id }} = context;
@@ -66,14 +73,20 @@ const updatePurchasedItem = (context) => {
 	const {
 		purchaseItemAction: { actionOnCart },
 		purchaseItem,
-		config: { cartAction: { addProduct }},
+		config: { cartAction: { addProduct },
+			percentageValue },
 	} = context;
 
 	(actionOnCart === addProduct && purchaseItem.quantity++)
 		|| purchaseItem.quantity--;
-	purchaseItem.price = purchaseItem.quantity * purchaseItem.unitPrice;
+	purchaseItem.isProductAvailable = checkProductAvailability(purchaseItem);
+	purchaseItem.price
+	= calculatePrice({ ...{ ...purchaseItem, percentageValue }});
 	return purchaseItem;
 };
+
+const checkProductAvailability = ({ availableQuantity, quantity = 1 }) =>
+	quantity < availableQuantity;
 
 const calculateTotalPrice = (cartItems) =>
 	cartItems.reduce((a, c) => a + c.price, 0);
