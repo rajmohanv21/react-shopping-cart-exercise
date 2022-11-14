@@ -7,9 +7,9 @@ const Cart = (context) => {
 	const { state: { cartItems }} = context;
 
 	return <div className="cart-panel">
-		{(Boolean(cartItems.length)
-			&& <PurchaseDetails { ...context }/>)
-			|| <EmptyCart/>}
+		{cartItems.length > 0
+			? <PurchaseDetails { ...context }/>
+			: <EmptyCart/>}
 
 	</div>;
 };

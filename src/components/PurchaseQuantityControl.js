@@ -1,25 +1,39 @@
 import React from 'react';
 import productValidation from '../services/validation';
 
+const AddCartButtonControl = ({ actions: {
+	addProductToCart,
+	getTotal,
+},
+purchaseItem }) =>
+	<button
+		onClick={ () => {
+			addProductToCart(purchaseItem);
+			getTotal();
+		} }
+		disabled={ !productValidation.checkProductAvailability(purchaseItem) }
+	>
+		+ </button>;
+
+const RemoveCartButtonControl = ({ actions: {
+	removeProductFromCart,
+	getTotal,
+},
+purchaseItem }) =>
+	<button
+		onClick={ () => {
+			removeProductFromCart(purchaseItem);
+			getTotal();
+		} }
+	> - </button>;
+
 const PurchaseQuantityControl = (context) => {
-	const { actions: {
-		addProductToCart,
-		removeProductFromCart,
-	},
-	purchaseItem } = context;
-	const isProductAvailable
-	= productValidation.checkProductAvailability(purchaseItem);
+	const { purchaseItem } = context;
 
 	return <div>
-		<button
-			onClick={ () => removeProductFromCart(purchaseItem) }
-		> - </button>
+		<RemoveCartButtonControl { ...context }/>
 		&nbsp;{purchaseItem.quantity}&nbsp;
-		<button
-			onClick={ () => addProductToCart(purchaseItem) }
-			disabled={ !isProductAvailable }
-		>
-			+ </button>
+		<AddCartButtonControl { ...context }/>
 	</div>;
 };
 

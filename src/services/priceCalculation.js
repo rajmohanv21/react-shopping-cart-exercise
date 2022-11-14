@@ -10,7 +10,7 @@ const calculateDiscountPrice = ({ unitPrice, discount }) => {
 	return unitPrice - (unitPrice * (discount * percentageValue));
 };
 
-const calculateTotalPrice = (cartItems) =>
+const calculateTotalPrice = ({ state: { cartItems }}) =>
 	cartItems.reduce((a, c) => a + c.price, 0);
 
 const priceCalculation = {
