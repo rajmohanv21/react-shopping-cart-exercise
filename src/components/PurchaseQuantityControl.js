@@ -1,4 +1,5 @@
 import React from 'react';
+import productValidation from '../services/validation';
 
 const PurchaseQuantityControl = (context) => {
 	const { actions: {
@@ -6,6 +7,8 @@ const PurchaseQuantityControl = (context) => {
 		removeProductFromCart,
 	},
 	purchaseItem } = context;
+	const isProductAvailable
+	= productValidation.checkProductAvailability(purchaseItem);
 
 	return <div>
 		<button
@@ -14,7 +17,7 @@ const PurchaseQuantityControl = (context) => {
 		&nbsp;{purchaseItem.quantity}&nbsp;
 		<button
 			onClick={ () => addProductToCart(purchaseItem) }
-			disabled={ !purchaseItem.isProductAvailable }
+			disabled={ !isProductAvailable }
 		>
 			+ </button>
 	</div>;

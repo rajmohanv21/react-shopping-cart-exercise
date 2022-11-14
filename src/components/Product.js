@@ -6,14 +6,13 @@ import ProductInfo from './ProductInfo';
 const Product = (context) => {
 	const {
 		product,
-		config: { percentageValue },
 	} = context;
 
 	return <div className="productTile">
 		<div className="product">
 			<ProductImage { ...product }/>
 			<div className="productInfo">
-				<ProductInfo { ...{ ...product, percentageValue } }/>
+				<ProductInfo { ...product }/>
 				<AddToCartButton { ...context }/>
 			</div>
 		</div>

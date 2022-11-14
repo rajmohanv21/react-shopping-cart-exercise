@@ -1,15 +1,19 @@
 import React from 'react';
+import priceCalculation from '../services/priceCalculation';
 
-const ProductInfo = ({ brand, name, unitPrice, discount, percentageValue }) =>
-	<div>
+const ProductInfo = (product) => {
+	const { brand, name, unitPrice, discount } = product;
+
+	return <div>
 		<p>{brand} </p>
 		<p>{name} </p>
 		<p>
 			<strong>
-				Rs.{unitPrice - (unitPrice * (discount * percentageValue))}
+				Rs.{priceCalculation.calculateDiscountPrice(product)}
 			</strong>
 			<strike> Rs.{unitPrice}</strike>  {discount}% off
 		</p>
 	</div>;
+};
 
 export default ProductInfo;
