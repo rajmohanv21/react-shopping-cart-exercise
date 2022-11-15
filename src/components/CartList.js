@@ -8,19 +8,21 @@ const CartList = (context) => {
 
 	} = context;
 
-	return <ul>
-		{cartItems.map((purchaseItem, index) =>
-			<li key={ index }>
-				<ProductImage { ...purchaseItem }/>
-				<div className="cart-product-info">
-					<div> {purchaseItem.brand} </div>
-					<div> {purchaseItem.name} </div>
-					<PurchaseQuantityControl
-						{ ...{ ...context, purchaseItem } }
-					/>
-				</div>
-			</li>)}
-	</ul>;
+	return <div className="cart-item-list">
+		<ul>
+			{cartItems.map((purchaseItem, index) =>
+				<li key={ index }>
+					<ProductImage { ...purchaseItem }/>
+					<div className="cart-product-info">
+						<div> {purchaseItem.brand} </div>
+						<div> {purchaseItem.name} </div>
+						<PurchaseQuantityControl
+							{ ...{ ...context, purchaseItem } }
+						/>
+					</div>
+				</li>)}
+		</ul>
+	</div>;
 };
 
 export default CartList;

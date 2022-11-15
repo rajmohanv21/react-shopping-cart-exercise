@@ -4,9 +4,7 @@ import PurchasePrice from './PurchasePrice';
 
 const PurchaseDetails = (context) =>
 	<div className="cart-content">
-		<div className="cart">
-			<CartList { ...context }/>
-		</div>
+		<CartList { ...context }/>
 		<PurchasePrice { ...context }/>
 	</div>;
 

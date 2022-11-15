@@ -8,14 +8,10 @@ const Product = (context) => {
 		product,
 	} = context;
 
-	return <div className="productTile">
-		<div className="product">
-			<ProductImage { ...product }/>
-			<div className="productInfo">
-				<ProductInfo { ...product }/>
-				<AddToCartButton { ...context }/>
-			</div>
-		</div>
+	return <div className="product">
+		<ProductImage { ...product }/>
+		<ProductInfo { ...product }/>
+		<AddToCartButton { ...context }/>
 	</div>
 	;
 };

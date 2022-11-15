@@ -4,7 +4,7 @@ import Cart from './Cart';
 import '../App.scss';
 
 const BodyContent = (context) =>
-	<div className="main-content">
+	<div className="body-content">
 		<ProductList { ...context }/>
 		<Cart { ...context }/>
 	</div>;

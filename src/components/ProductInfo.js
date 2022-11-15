@@ -4,7 +4,7 @@ import priceCalculation from '../services/priceCalculation';
 const ProductInfo = (product) => {
 	const { brand, name, unitPrice, discount } = product;
 
-	return <div>
+	return <div className="productInfo">
 		<p>{brand} </p>
 		<p>{name} </p>
 		<p>

@@ -23,7 +23,7 @@ footer {
 
 // Main CContent
 
-.main-content {
+.body-content {
 	height: auto;
 	min-height: 750px;
 	display: flex;
@@ -42,17 +42,18 @@ footer {
 	justify-content: space-around;
 }
 
-.productTile {
+.product {
 	width: 300px;
 	height: auto;
+	padding: 20px;
 }
 
-.product {
+/* .product {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
 }
-
+ */
 img {
 	width: 260px;
 	height: auto;
@@ -74,7 +75,7 @@ img {
 }
 
 
-.cart li {
+.cart-item-list li {
 	text-align: start;
 	list-style: none;
 	padding: 10px;
