@@ -1,14 +1,9 @@
-const calculatePrice = (data) => {
-	const { quantity } = data;
+const percentageValue = 0.01;
 
-	return quantity * calculateDiscountPrice(data);
-};
+const calculatePrice = (data) => data.quantity * calculateDiscountPrice(data);
 
-const calculateDiscountPrice = ({ unitPrice, discount }) => {
-	const percentageValue = 0.01;
-
-	return unitPrice - (unitPrice * (discount * percentageValue));
-};
+const calculateDiscountPrice = ({ unitPrice, discount }) =>
+	unitPrice - (unitPrice * (discount * percentageValue));
 
 const calculateTotalPrice = ({ state: { cartItems }}) =>
 	cartItems.reduce((a, c) => a + c.price, 0);
